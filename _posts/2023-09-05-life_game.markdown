@@ -1,0 +1,183 @@
+---
+title: 用lua语言实现康威生命游戏
+categories: 笔记
+tags: [lua, lifegame, posix]
+---
+# [康威生命游戏](https://zh.wikipedia.org/wiki/%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F?useskin=vector)
+
+这个游戏简单讲就是一个自动机，每个格子的细胞状态取决于周围八个格子的细胞
+- 当细胞存活时
+    1. 周围活细胞少于两个，会因孤独而死
+    2. 周围活细胞多与三个，会因竞争而死
+    3. 周围活细胞为二或三个时，则继续存活
+- 当细胞死亡时
+    1. 周围有三个活细胞，则复活（繁殖）
+
+# 实现
+``` shell
+env
+OS: openSUSE Tumbleweed on Windows 10 x86_64
+Kernel: 5.15.90.1-microsoft-standard-wsl2
+Lua: Lua 5.4.6
+Lua: LuaRocks 3.9.1
+```
+
+## 初始化棋盘和细胞
+``` lua
+-- 定义细胞状态
+local ALIVE = "⚫️"
+local DEAD = " "
+
+-- 创建游戏盘面
+local width = 40
+local height = 40
+local board = {} -- 存储细胞(二维数组)
+
+-- 初始化盘面
+for i = 1, width do
+  board[i] = {}
+  for j = 1, height do
+    local r = math.random(1,10)
+    board[i][j] = ALIVE
+    if r<=7 then
+      board[i][j] = DEAD
+    end
+  end
+end
+......
+```
+在这我们使用二维数组存储每个细胞的状态，并且其中七成是死细胞
+
+## 显示盘面
+``` lua
+......
+local function displayBoard()
+  for i = 1, width do
+    for j = 1, height do
+      io.write(board[i][j])
+    end
+    io.write("\n")
+  end
+end
+......
+```
+其实就是遍历所有细胞并且打印
+
+## 统计周围细胞状态
+``` lua
+......
+function countAliveNeighbors(x, y)
+  local count = 0
+
+  -- 相邻格子的相对位置
+  local neighbors = {
+    {x - 1, y - 1}, {x, y - 1}, {x + 1, y - 1},
+    {x - 1, y},                 {x + 1, y},
+    {x - 1, y + 1}, {x, y + 1}, {x + 1, y + 1}
+  }
+
+  for _, neighbor in ipairs(neighbors) do
+    local nx, ny = table.unpack(neighbor)
+    -- 判断相邻格子是否在边界内且为活细胞
+    if nx >= 1 and nx <= width and ny >= 1 and ny <= height and board[nx][ny] == ALIVE then
+      count = count + 1
+    end
+  end
+
+  return count
+end
+......
+```
+
+> 这个函数中`ipairs(table)`将索引和可迭代对象绑定，
+> 即`(1, table[1]), (2, table[2]), ...`
+> `table.unpack()`函数在lua51版本之前不在table里，可以直接调用
+
+## 更新盘面
+``` lua
+......
+local function updateBoard()
+  local newBoard = {} -- 存储更新后细胞状态
+
+  for i = 1, width do
+    newBoard[i] = {}
+    for j = 1, height do
+      local aliveNeighbors = countAliveNeighbors(i, j)
+      if board[i][j] == ALIVE then
+        -- 活细胞周围活细胞数量不符合生存规则，则细胞死亡
+        if aliveNeighbors < 2 or aliveNeighbors > 3 then
+          newBoard[i][j] = DEAD
+        else
+          newBoard[i][j] = ALIVE
+        end
+      else
+        -- 死细胞周围有3个活细胞，则细胞复活
+        if aliveNeighbors == 3 then
+          newBoard[i][j] = ALIVE
+        else
+          newBoard[i][j] = DEAD
+        end
+      end
+    end
+  end
+
+  -- 更新盘面
+  board = newBoard
+end
+......
+```
+
+## 主循环
+``` lua
+......
+while true do
+  io.write("\27[2J\27[1;1H") -- 清空控制台输出
+  displayBoard()
+  updateBoard()
+  os.execute("sleep 1") -- 控制刷新速度
+end
+```
+把以上内容拼到一起就可以得到一个能**运行**的生命游戏了
+
+### 但是它真的只能运行而不能停下来
+因为lua语言自身，它常常是嵌入在别的语言中，自己并不监听系统信号。
+
+因此，我们要手动创建POSIX信号事件。
+
+> 这里我们使用第三方的`luaposix`
+> 可以用lua包管理工具`luarocks`安装
+>
+> ```luarocks install luaposix```
+
+```lua
+......
+--引入POSIX模块
+local posix = require("posix")
+
+--退出标志
+local exitKeyPressed =  false
+
+--信号处理回调函数
+local function signalHandler(signal)
+  if signal == posix.SIGINT or signal == posix.SIGTERM then
+    exitKeyPressed = true
+  end
+end
+
+--注册信号处理函数
+posix.signal(posix.SIGINT, signalHandler)
+posix.signal(posix.SIGTERM, signalHandler)
+......
+```
+
+并且修改主循环入口判断条件
+```lua
+......
+while not exitKeyPressed do
+  io.write("\27[2J\27[1;1H") -- 清空控制台输出
+  displayBoard()
+  updateBoard()
+  posix.sleep(1) -- 使用posix控制速度，并监听信号
+end
+```
+这样我们就可以使用`ctrl-c`退出游戏了
