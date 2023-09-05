@@ -1,5 +1,5 @@
 ---
-title: "磨刀不误砍柴工，美化wsl"
+title: "磨刀不误砍柴工，优化wsl"
 categories: 笔记
 tags: [wsl]
 ---
