@@ -1,0 +1,112 @@
+---
+title: 'markdown中LaTeX简单语法'
+categories: 笔记
+tags: [markdown, latex]
+math: true
+---
+
+# LaTeX is not latex
+
+> 一种基于TeX的排版系统
+
+## 基础语法
+
+> 本文仅针对markdown中的简单的LaTeX公式
+
+### 上下标
+
+```LaTeX
+E=mc^2
+
+\Delta v=P_0-P
+```
+
+$$
+E=mc^2
+\\
+\Delta v=P_0-P
+$$
+
+### 分数
+
+```LaTeX
+p=\frac{h}{\lambda}
+```
+
+$p=\frac{h}{\lambda}$
+
+### 符号
+
+```LaTeX
+\cdot   # 点积
+\lim    # 极限
+\sum    # 求和
+\sqrt # 开方
+\geq    # 大于等于
+\leq    # 小于等于
+\quad   # 空格
+\qquad  # 长一点的空格
+
+```
+
+### 多行公式
+
+```LaTeX
+\begin{aligned}
+a &= b+c+d \\
+x &= y+z
+\end{aligned}   # 对齐
+
+\begin{aligned}
+a &= b+c+d \\
+x &= y+z
+\end{aligned}   # 对齐
+
+\begin{gather}
+a &= b+c+d \\
+x &= y+z
+\end{gather}    # 不对齐
+
+\begin{cases}
+-x, \qquad x\leq 0 \\
+x, \quad x>0
+\end{cases}     # 分段函数
+```
+
+#### 长公式对齐
+
+$$
+\begin{aligned}
+    x ={}& a+b+c+{} \\
+    &d+e+f+g
+\end{aligned} \\
+$$
+
+#### 公式组对齐
+
+$$
+\begin{aligned}
+    a &= b+c+d \\
+    x &= y+z
+\end{aligned} \\
+$$
+
+#### 公式组不对齐
+
+$$
+\begin{gather}
+    a =x+y \\
+    b = x+y+z
+\end{gather} \\
+$$
+
+#### 分段函数
+
+$$
+\begin{cases}
+    -x, \qquad x\leq 0 \\
+    x, \quad x>0
+\end{cases}
+$$
+
+> 此外LaTeX还支持矩阵等排版,用到了再更新
