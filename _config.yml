@@ -26,7 +26,7 @@ description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: "https://b.b1ink.icu"
+url: "https://blog.b1ink.icu"
 
 github:
   username: b1ink2 # change to your github username
