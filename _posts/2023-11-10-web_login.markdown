@@ -1,0 +1,134 @@
+---
+title: "openwrt登陆校园网"
+categories: 笔记
+tags: [openwrt]
+---
+
+校园网只能同时三个设备在线，而且会自动掉线，简直就是一坨，还不能自己拉宽带。
+
+最后便宜收了个刷好openwrt的路由器，全宿舍一起用
+
+> 原则上讲这个路由器也不让接的
+
+**下列内容仅适用于网页认证的校园网**
+
+## 准备
+
+账号、密码、curl命令
+
+前两者不用多说，重点是curl命令，以我校校园网认证为例：
+
+首先，打开校园网登陆网页和开发人员工具并勾选*保留日志*，然后刷新页面
+![登陆界面](https://z1.ax1x.com/2023/11/10/pi8Y8oj.png)
+
+正常登陆网关
+
+然后在*筛选器*中输入自己的密码，这时就会剩下一个请求
+![Alt text](https://z1.ax1x.com/2023/11/10/pi8YfOO.png)
+
+右键该请求，复制为cURL(bash)
+![登录指令](https://z1.ax1x.com/2023/11/10/pi8YW6K.png)
+
+新建一个txt文件并粘贴。
+```bash
+curl 'http://10.9.1.3:801/eportal/?c=Portal&a=login&callback=dr1003&login_method=1&user_account=%2Cb%2C{% account %}%40ctc&user_password={% password %}.&wlan_user_ip=10.70.66.167&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=4926' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Connection: keep-alive' \
+  -H 'Cookie: PHPSESSID=0spvvd0n8moq9qjkm78tkdiekk' \
+  -H 'Referer: http://10.9.1.3/' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0' \
+  --compressed \
+  --insecu
+
+```
+
+> 此处用{% account %}和{% password %}替代了实际账号和密码
+> 
+> Cookie我做了修改
+>
+> -H 后面的加不加都行
+
+至此，就得到了cURL指令
+
+## 编写脚本
+有了登陆指令，就要开始编写登陆脚本了。
+首先分析cURL指令中的几个变量，显然有账号和密码，还有MAC地址和IP地址。
+(我校校园网MAC地址并没有什么用)
+
+然后我们就得到了如下的脚本
+
+```bash
+#!/bin/bash
+
+account=`account`
+password=`password`
+ip=`ifconfig eth0 | grep -w 'inet' | awk '{print$2}' | tr -d 'addr:'`
+
+curl 'http://10.9.1.3:801/eportal/?c=Portal&a=login&callback=dr1003&login_method=1&user_account=%2C0%2C'${account}'%40ctc&user_password='${password}'6&wlan_user_ip='${ip}'&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=2267'
+```
+
+> 自行替换账号和密码
+
+解释一下
+```bash
+ip=`ifconfig eth0 | grep -w 'inet' | awk '{print$2}' | tr -d 'addr:'`
+```
+> `eth0`可能需要自己换一下参考`ifconfig`命令，找到带IP地址的那个网卡
+
+`|`这个竖线叫管道符，它把上一个指令的输出重定向为下一个指令的输入。
+
+`ifconfig`是linux下用来查看网卡信息的命令。~~但不是默认都有，OpenSuSE就不是。~~
+参数`eth0`是指定的网卡
+
+`grep -w 'inet'`仅完全匹配前述`ifconfig`输出内容中包含'inet'这个词的段落
+
+`awk '{print$2}'`将`grep -w 'inet'`处理过后的行按空格分成几个部分，然后输出第二部分。
+
+`tr -d 'addr:'` 上一步的输出结果是`addr:***.***.***.***`，你一定猜到了这个命令就是去掉开头那个`addr:`
+
+然后我们就能得到最终的IP地址了
+
+### 完善
+
+核心部分已经结束，但还没有全部完成。
+
+实际情况中，我校校园网会在超过24小数后随机断连，所以我们要定时登陆。
+
+但是定时登陆时还在线，那网关就不会刷新，所以还要用上面找登陆cURL命令的方法找一下登出。
+
+最后我们得到的完整脚本如下
+
+
+```bash
+#!/bin/bash
+
+account=`account`
+password=`password`
+ip=`ifconfig eth0 | grep -w 'inet' | awk '{print$2}' | tr -d 'addr:'`
+
+curl 'http://10.9.1.3:801/eportal/?c=Portal&a=logout&callback=dr1004&login_method=1&user_account=drcom&user_password=123&ac_logout=1&register_mode=1&wlan_user_ip='${ip}'&wlan_user_ipv6=&wlan_vlan_id=1&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=9404'
+
+curl 'http://10.9.1.3:801/eportal/?c=Portal&a=login&callback=dr1003&login_method=1&user_account=%2C0%2C'${account}'%40ctc&user_password='${password}'6&wlan_user_ip='${ip}'&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=2267'
+```
+
+其实就多了一个登出，但是还可以用`ping`等命令判断离线后执行登陆脚本。
+
+将上述内容拷贝到路由器的一个shell脚本中，如：`login.sh`
+并软链接到 `/usr/bin/login`(移动过去也行)
+```bash
+ln -s path/to/login.sh /usr/bin/netlogin
+```
+
+最后去管理界面计划任务添加一行
+
+```bash
+0 2 * * * netlogin
+```
+
+简单讲一下，这是一个文件，每一行开头从前往后分别是
+`分 时 日 月 周`匹配到到时间就自动执行后面的内容。
+上述内容就是每天2:00执行`netlogin`
+根据你自己适用习惯挑一个不用的时间段执行该脚本。
+
+> 今年双十一淘宝怕不是疯了，全世界都是它的广告。再加上摇一摇跳转，无敌了。
