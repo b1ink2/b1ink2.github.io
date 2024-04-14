@@ -73,7 +73,7 @@ Github Page 是一个 GitHub 官方的项目，它使用 [jekyll](http://jekyllc
 
 所以首先需要 A 记录，即 github 服务器的 IPv4 地址，一共 4 个，将他们添加到域名下面
 
-```txt
+```
 185.199.108.153
 185.199.109.153
 185.199.110.153
@@ -99,7 +99,7 @@ Cloudflare 有比较良心的免费服务，很适合用在这种情况。注册
 
 > 这里打开强制 HTTPS 的方法可能不对，因为之前是没问题的，后来提示报错。我就用这种方法让它目前又正常工作了。
 
-![Cloudflare 截图](../assets/img/cfcut.png)
+![Cloudflare 截图](https://img2.imgtp.com/2024/04/14/JA9w4UO7.png)
 
 ## 评论系统
 
