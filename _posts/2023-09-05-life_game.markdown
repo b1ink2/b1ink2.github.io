@@ -181,3 +181,7 @@ while not exitKeyPressed do
 end
 ```
 这样我们就可以使用`ctrl-c`退出游戏了
+
+# ENDING
+
+> 生生不息

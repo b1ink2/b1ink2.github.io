@@ -35,7 +35,7 @@ tags: [openwrt]
 新建一个txt文件并粘贴。
 
 ```bash
-curl 'http://10.9.1.3:801/eportal/?c=Portal&a=login&callback=dr1003&login_method=1&user_account=%2Cb%2C{$ account $}%40ctc&user_password={$ password $}.&wlan_user_ip=10.70.66.167&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=4926' \
+curl 'http://10.9.1.3:801/eportal/?c=Portal&a=login&callback=dr1003&login_method=1&user_account=%2Cb%2C{ account }%40ctc&user_password={ password }.&wlan_user_ip=10.70.66.167&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=3.3.3&v=4926' \
   -H 'Accept: */*' \
   -H 'Accept-Language: en-US,en;q=0.9' \
   -H 'Connection: keep-alive' \
@@ -47,7 +47,7 @@ curl 'http://10.9.1.3:801/eportal/?c=Portal&a=login&callback=dr1003&login_method
 
 ```
 
-> 此处用{$ account $}和{$ password $}替代了实际账号和密码
+> 此处用{ account }和{ password }替代了实际账号和密码
 > 
 > Cookie我做了修改
 >
@@ -134,5 +134,7 @@ ln -s path/to/login.sh /usr/bin/netlogin
 `分 时 日 月 周`匹配到到时间就自动执行后面的内容。
 上述内容就是每天2:00执行`netlogin`
 根据你自己适用习惯挑一个不用的时间段执行该脚本。
+
+# ENDING
 
 > 今年双十一淘宝怕不是疯了，全世界都是它的广告。再加上摇一摇跳转，无敌了。

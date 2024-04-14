@@ -108,3 +108,7 @@ setxkbmap -option ctrl:swapcaps
 本来以为是驱动问题，但是各种安装，重装都没用，还安装了 pulseaudio, 问题就在这，使用 pipewire 和 pipewire-pules 代替pulseaudio.
 
 linux 下的音频驱动真的麻烦。。。
+
+# ENDING
+
+> I use the Arch BTW.

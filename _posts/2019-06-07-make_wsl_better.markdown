@@ -63,6 +63,8 @@ plugins = (zsh-autosuggestions zsh-syntax-highlighting)
 
 然后重启terminla就能看到最终的样子了
 
+# ENDING
+
 ### 2022.2.28
 windows 下的终端在用 'windows terminal' 微软自家的，用起来很舒服。
 Linux 用的 'Kitty' 功能很强大
