@@ -1,7 +1,0 @@
----
-title: test
-categories: 笔记
-tags: [test]
----
-
-this is test page
