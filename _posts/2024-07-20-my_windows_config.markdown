@@ -58,7 +58,7 @@ Set-PSReadLineOption -EditMode Emacs
 
 ssh 流量走代理比较麻烦，所以 github 改用 github-cli[^6] 了
 
-[^6]:[GitHub CLI | Take GitHub to the command line](https://cli.github.com/)
+[^6]:[GitHub CLI: Take GitHub to the command line](https://cli.github.com/)
 
 ## 以前备份的 linux 下的 config
 
