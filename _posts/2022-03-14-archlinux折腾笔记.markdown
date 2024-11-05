@@ -4,30 +4,30 @@ categories: 笔记
 tags: [archlinux]
 ---
 
-# 0、引言
+# 引言
 
 Archlinux 是个很需要折腾的 Linux 发行版，这里会记录一些折腾它遇到的一些问题。
 
 不定期更新
 
-# 1、软件
+# 软件
 
-### 1.1 Android Studio
+### Android Studio
 
-android 在大陆有服务器，可以通过改hosts文件访问
+Android 在大陆有服务器，可以通过改hosts文件访问
 
-### 1.2 easyconnect
+### easyconnect
 
 aur 里有包，但是md5校验有问题，解决方法：手动下载到本地，执行 `makepkg -g >> PKGBUILD` 会自动覆盖原来的打包文件。执行
 `sudo pacman -U easyconnect-XXX` 就能安装了
 
 > 2022.5.22 再安装已经没有问题了
 
-### 1.3 1.4 Visual Studio Code
+### Visual Studio Code
 
-aur 源里有好几个，建议安装 `visual-studio-code-bin` 这个是巨硬的，还有一个 `code` 是源代码编译的，有些扩展不能在商店里直接安装
+aur 源里有好几个， `visual-studio-code-bin` 这个是巨硬的，还有一个 `code` 是源代码编译的，有些扩展不能在商店里直接安装
 
-### 1.5 中文输入法
+### 中文输入法
 
 以前一直用的是 fcitx 配合搜狗拼音食用。因为搜狗用的还是 fcitx-qt4，所以会有一些奇奇怪怪的问题，而且目前在用的 Gnome 桌面环境默认用的是 Ibus，所以这次就采用了 Ibus + rime 的组合，配置很简单
 
@@ -41,9 +41,9 @@ yay -S ibus ibus-rime
 
 
 
-# 2、配置
+# 配置
 
-### 2.1、kitty
+### kitty
 
 kitty 真的是我用过最舒服的终端，用显卡渲染，性能足够，支持图片，基本开箱即用，自己调整一下字体就行。
 
@@ -53,11 +53,11 @@ kitty +ktiiten themes
 
 可以直接选择内置的主题，很丰富
 
-### 2.2、zsh
+### zsh
 
 选择了 zim 管理 zsh 插件，p10k 也是真的好用。
 
-### 2.3 SSH 代理
+### SSH 代理
 
 首先安装 ncat
 
@@ -71,13 +71,8 @@ yay -S nmap
 Host github.com
     ProxyCommand ncat --proxy 地址:端口 --proxy-type socks5 %h %p
 ```
-> 2023.9.5 现在用了clash的tun模式，因为它直接模拟网卡，可以接管所有流量，就不用单独设置了。
 
-### 2.4 邮箱
-
-没一个好用的，还不如用网页版
-
-### 2.5 i3+gnome
+### i3+gnome
 
 修改触摸板双击和自然滚动
 编辑 `/etc/X11/xorg.conf.d/90-touchpad.conf`
@@ -93,22 +88,22 @@ Section "InputClass"
 	Option "TappingButtonMap" "lrm"
 ```
 
-swap `caps lock` and `ctrl`
+交换 `caps lock` 和 `ctrl`
+> 强烈建议这样做，尤其 shell 和 Emacs 重度用户
 
 ```sh
 setxkbmap -option ctrl:swapcaps
 ```
 
-### 2.6 声音
+### 声音
 
 本来 gnome 有声音的，用了 Gnome i3 后 i3 和 gnome 都没声了。
 
 > 会导致音频无声，以及无法播放音频和视频的情况。
 
-本来以为是驱动问题，但是各种安装，重装都没用，还安装了 pulseaudio, 问题就在这，使用 pipewire 和 pipewire-pules 代替pulseaudio.
+本来以为是驱动问题，但是各种安装，重装都没用，还安装了 pulseaudio, 问题就在这，最后使用 pipewire 和 pipewire-pules 代替pulseaudio.
 
-linux 下的音频驱动真的麻烦。。。
 
 # ENDING
 
-> I use the Arch BTW.
+> BTW, I'm arch user.

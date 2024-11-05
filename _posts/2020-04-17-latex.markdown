@@ -5,10 +5,6 @@ tags: [markdown, latex]
 math: true
 ---
 
-# LaTeX is not latex
-
-> 一种基于TeX的排版系统
-
 ## 基础语法
 
 > 本文仅针对markdown中的简单的LaTeX公式
@@ -41,7 +37,7 @@ $p=\frac{h}{\lambda}$
 \cdot   # 点积
 \lim    # 极限
 \sum    # 求和
-\sqrt # 开方
+\sqrt   # 开方
 \geq    # 大于等于
 \leq    # 小于等于
 \quad   # 空格
@@ -111,4 +107,4 @@ $$
 
 # ENDING
 
-> 此外LaTeX还支持矩阵等排版,用到了再更新
+> 敲矩阵什么的还是挺麻烦的

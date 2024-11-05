@@ -45,15 +45,19 @@ Github Page 是一个 GitHub 官方的项目，它使用 [jekyll](http://jekyllc
 首先，`_config.yml` 里面是一些配置内容，不同主题里面的东西也不尽相同，请根据主题作者的介绍和自己的需要更改。
 `_drafts` 和 `_posts` 里都是 Markdown 文件，不同在 `_drafts` 的内容不会在网站中显示，且非必须。`_posts` 是真正发布到网页上的内容。
 `_includes` 和 `_layouts` 是网页的样式，前者是一个完整网页的格个部分，后者将若干个部分整合成完整的网页。如果需要外部引用 JS 脚本等就在 `_includes` 里的 `header.html` 中引用即可。
-更具体的内容可以看[jekyll](http://jekyllcn.com/)
+更具体的内容可以看 Jekyll 的官网[^1]。
+
+[^1]:[Jekyll Home Page](http://jekyllcn.com/)
 
 #### 主题
 
 *   在 Github Page 设置页面可以从一些基础的主题中挑选一个。
 
-*   在 [Jekyll Themes](http://jekyllthemes.org/) 众多主题里选择一个并按说明执行操作即可。
+*   在 Jekyll Themes[^2] 众多主题里选择一个并按说明执行操作即可。
 
 *   在 GitHub 中寻找主题甚至别人的 Github Page 项目，Fork 一个，并改一下项目名称为 "abc.github.io"。
+
+[^2]:[Jekyll Themes](http://jekyllthemes.org/) 
 
 ## 域名
 
@@ -103,7 +107,9 @@ Cloudflare 有比较良心的免费服务，很适合用在这种情况。注册
 
 ## 评论系统
 
-我用的是[valine](https://valine.js.org/visitor.html)配置起来很方便，文档写的也很详细。(2022.2.28)
+我用的是 Valine[^3] 配置起来很方便，文档写的也很详细。
+
+[^3]:[Valine:文章阅读量统计](https://valine.js.org/visitor.html) 
 
 ### 记一个问题
 如果 markdown 文件的日期在未来某个时间，它会定时发布，但是这应该是 UTC 标准时间，所以大陆凌晨写好发出去可能不会立刻部署，可以把日期改成前一天的
