@@ -43,6 +43,7 @@ Set-PSReadLineOption -EditMode Emacs
 ### 字体
 
 等宽字体 Sarasa Term SC Nerd Font[^2]
+
 [^2]:[Sarasa Term SC Nerd](https://github.com/laishulu/Sarasa-Term-SC-Nerd)
 
 ## DevTool
@@ -56,6 +57,7 @@ Set-PSReadLineOption -EditMode Emacs
 ### Git
 
 ssh 流量走代理比较麻烦，所以 github 改用 github-cli[^6] 了
+
 [^6]:[GitHub CLI | Take GitHub to the command line](https://cli.github.com/)
 
 ## 以前备份的 linux 下的 config
