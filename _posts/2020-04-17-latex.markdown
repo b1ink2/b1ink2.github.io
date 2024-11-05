@@ -3,6 +3,7 @@ title: 'markdown中LaTeX简单语法'
 categories: 笔记
 tags: [markdown, latex]
 math: true
+description: 在 markdown 中使用的简单的 LaTeX 语法
 ---
 
 ## 基础语法
