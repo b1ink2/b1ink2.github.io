@@ -33,6 +33,7 @@ social:
   name: 'b1ink'
   email: teng@b1ink.icu # change to your email address
   links:
+    - https://github.com/b1ink2 # change to your github homepage
     # The first element serves as the copyright owner's link
     # - https://twitter.com/username # change to your twitter homepage
     # - https://github.com/username # change to your github homepage
