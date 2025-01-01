@@ -4,7 +4,7 @@ categories: 笔记
 tags: [wsl]
 ---
 
-# 准备
+## 准备
 
 > WSL
 > Fluent Terminal
@@ -26,7 +26,7 @@ WSL[^1] 在 win10 自带的应用商店里搜索 Linux 选择自己喜欢的 Lin
 
 [^2]:[Fluent Terminal](https://github.com/felixse/FluentTerminal/archive/master.zip) 
 
-# 美化
+## 美化
 
 运行以下命令安装 zsh
 
