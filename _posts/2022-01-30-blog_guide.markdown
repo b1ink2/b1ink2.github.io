@@ -16,7 +16,7 @@ tags: [blog]
 
 ### Github Page
 
-Github Page 是一个 GitHub 官方的项目，它使用 [jekyll](http://jekyllcn.com/) 对一个仓库提供静态网页的服务，理论上能做到任何网页能做的事情。
+Github Page 是一个 GitHub 官方的项目，它使用 [jekyll](https://jekyllcn.com/) 对一个仓库提供静态网页的服务，理论上能做到任何网页能做的事情。
 假设你的 GitHub 账户名叫做 "abc"，那么你只需要新建一个项目叫做 "abc.github.io"，此时你就创建了一个 Github Page 的项目。
 接着你就可以在浏览器访问域名 "abc.github.io" 查看你的博客内容了。
 
@@ -47,7 +47,7 @@ Github Page 是一个 GitHub 官方的项目，它使用 [jekyll](http://jekyllc
 `_includes` 和 `_layouts` 是网页的样式，前者是一个完整网页的格个部分，后者将若干个部分整合成完整的网页。如果需要外部引用 JS 脚本等就在 `_includes` 里的 `header.html` 中引用即可。
 更具体的内容可以看 Jekyll 的官网[^1]。
 
-[^1]:[Jekyll Home Page](http://jekyllcn.com/)
+[^1]:[Jekyll Home Page](https://jekyllcn.com/)
 
 #### 主题
 
@@ -57,7 +57,7 @@ Github Page 是一个 GitHub 官方的项目，它使用 [jekyll](http://jekyllc
 
 *   在 GitHub 中寻找主题甚至别人的 Github Page 项目，Fork 一个，并改一下项目名称为 "abc.github.io"。
 
-[^2]:[Jekyll Themes](http://jekyllthemes.org/) 
+[^2]:[Jekyll Themes](https://jekyllthemes.org/) 
 
 ## 域名
 
