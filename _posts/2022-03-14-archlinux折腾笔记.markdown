@@ -108,6 +108,3 @@ setxkbmap -option ctrl:swapcaps
 
 > BTW, I'm arch user.
 
-[^1]:[Raspberry Pi 3](https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-3)
-[^2]:[在树莓派3 中安装 Arch Linux](https://immwind.com/raspberry-pi-install-arch-linux/)
-[^3]:[树莓派安装Arch Linux 教程（一）安装Arch](https://qsctech-sange.github.io/arch-on-Raspberrypi.html#%E6%89%80%E9%9C%80%E5%B7%A5%E5%85%B7)
