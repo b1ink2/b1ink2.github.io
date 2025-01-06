@@ -13,7 +13,7 @@ tags: [archlinux, rasp]
 
 ### 分区
 
-首先吧 SD 卡插到电脑，将其格式化为一个 `256M boot` 分区和一个 `root` 分区。
+首先吧 SD 卡插到电脑，将其格式化为一个 `256M boot` 分区和一个 `root` 分区
 
 使用该命令进行分区，`sdX` 换成对应的 SD 卡。
 
@@ -26,7 +26,7 @@ fdisk /dev/sdX
 4. 输入 `t` 设置分区类型，`c` 表示 W95 FAT32 (LBA)
 5. 输入 `n` 创建一个分区，`p` 表示主分区，`2` 表示分区号，`Enter` 使用默认起始扇区，`Enter` 使用默认结束扇区(即所有剩余空间)
 6. 输入 `p` 列出所有分区，此时应该有两个分区
-7. 输入 `w` 写入分区表并退出
+7. 输入 `w` 写入分区表并退出[^1][^3]
 
 ### 文件系统
 
@@ -76,7 +76,7 @@ mv root/boot/* boot
 umount boot root
 ```
 
-## 配置
+## 配置[^2]
 
 插入SD 卡、电源，启动树莓派。建议插个网线 SSH 登录
 
@@ -103,6 +103,6 @@ passwd {password}
 
 > 2025 新年快乐🎇
 
-[^1]:[Raspberry Pi 3](https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-3)
+[^1]:[Arch Linux ARM: Raspberry Pi 3](https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-3)
 [^2]:[在树莓派3 中安装 Arch Linux](https://immwind.com/raspberry-pi-install-arch-linux/)
 [^3]:[树莓派安装Arch Linux 教程（一）安装Arch](https://qsctech-sange.github.io/arch-on-Raspberrypi.html#%E6%89%80%E9%9C%80%E5%B7%A5%E5%85%B7)
