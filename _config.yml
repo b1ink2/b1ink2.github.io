@@ -16,7 +16,7 @@ timezone: +0800
 
 title: B!ink # the main title
 
-tagline: 探索未知的美好 # it will display as the sub-title
+tagline: 一个无聊的博客 # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   可能是一个无聊的人写的无聊的博客。
